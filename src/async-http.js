@@ -28,13 +28,12 @@
     }
 }(function ($) {
     "use strict";
-
     /**
      * jQuery get attr by starting name
-     * @namespace Prototype 
-     * @augments {$.fn}
+     * @global
+     * @method attrStartWith     
      * @param {string} begins Attr begin name
-     * @return {Array} 
+     * @return {Array} Joined array
      * @see http://stackoverflow.com/questions/36971998/can-i-get-all-attributes-that-begin-with-on-using-jquery
      */
     $.fn.attrStartWith = function (begins) {
@@ -45,8 +44,9 @@
 
     /**
      * Return unique itens of array
-     * @namespace Prototype
-     * @augments {Array.prototype}
+     * @global
+     * @augments Array.prototype
+     * @method mergeUnique
      * @param {Array} secondOf
      * @return {Array}
      * @see http://stackoverflow.com/questions/22208966/merging-of-two-arrays-store-unique-elements-and-sorting-in-jquery
@@ -63,7 +63,8 @@
 
     /**
      * Set first letter to lower case
-     * @namespace Prototype
+     * @global
+     * @method toLowerFirstLetter
      * @augments {String.prototype}
      * @return {string} Inverted case
      */
@@ -134,8 +135,23 @@
      */
     asyncHttp.togglePollState = function (context) {
         context = context instanceof jQuery ? context : $(context);
-        var paused = context.data('async-inteval-paused') || false;
-        context.data('async-inteval-paused', !paused);
+        var paused = context.data('async-poll-paused') || false;
+        //invert value
+        paused = !paused;
+        //save
+        context.data('async-poll-paused', paused);
+        /**
+         * Trigger when poll pause state has changed
+         * @memberof asyncHttp.request
+         * @event async:poll-pause
+         * @param {event}
+         * @example
+         * <div async-autoload="/url" id="example"></div>
+         * <script>
+         * $('#example').on('async:poll-pause', function(isPaused){ });
+         * </script>
+         */
+        context.trigger('async:poll-pause', [paused]);
     };
 
     /**
@@ -605,7 +621,7 @@
      *  //Overwrite here config assumed from attributes 
      * });
      */
-    var AsyncHttp = function (context, options) {
+    var AsyncHttp = asyncHttp.request = function (context, options) {
         context = context instanceof jQuery ? context : $(context);
         var me = this;
 
@@ -787,29 +803,38 @@
 
         //if is poll
         if (config.poll !== undefined) {
-            context.data('async-inteval', setTimeout(function () {
-                var interval = context.data('async-inteval');
-                var executions = context.data('async-inteval-executions') || 0;
-                var paused = context.data('async-inteval-paused') === true;
-                if (paused || (config.pollRepeats !== undefined && executions == config.pollRepeats)) {
-                    clearTimeout(interval);
-                    context.data('async-inteval', undefined);
+            context.data('async-poll-interval', setTimeout(function pollInterval() {
+                var interval = context.data('async-interval');
+                var executions = context.data('async-poll-executions') || 0;
+                var paused = context.data('async-poll-paused') === true;
+                try {
+                    if (paused) {
+                        context.data('async-poll-interval', setTimeout(pollInterval, config.poll));
+                    } else if (config.pollRepeats !== undefined && executions == config.pollRepeats) {
+                        clearTimeout(interval);
+                        context.data('async-poll', undefined);
+                    } else {
+                        //increment executions
+                        context.data('async-poll-executions', executions + 1);
+                        //make a new request
+                        new AsyncHttp(context);
+                    }
+                } catch (error) {
+                    throw error;
+                } finally {
+                    /**
+                     * Trigger when poll request run
+                     * @memberof asyncHttp.request
+                     * @event async:poll
+                     * @example
+                     * <div async-autoload="/url" id="example"></div>
+                     * <script>
+                     * $('#example').on('async:poll', function(totalExecutions, pausedState){ });
+                     * </script>
+                     */
+                    context.trigger('async:poll', [executions, paused]);
                 }
-                /**
-                 * Trigger when poll request run
-                 * @memberof asyncHttp.request
-                 * @event async:poll
-                 * @example
-                 * <div async-autoload="/url" id="example"></div>
-                 * <script>
-                 * $('#example').on('async:poll', function(totalExecutions){ });
-                 * </script>
-                 */
-                context.trigger('async:poll', executions);
-                //increment executions
-                context.data('async-inteval-executions', executions + 1);
-                //make a new request
-                new AsyncHttp(context);
+
             }, config.poll));
         }
 
@@ -913,16 +938,42 @@
      * Overwrite default jquery load method
      * @private
      */
+    /**
+     * Overwrite default jquery load method
+     * @namespace Prototype 
+     * @memberof {$.fn}
+     * @method load
+     * @see http://api.jquery.com/load/     
+     * @example
+     * $(document).ready(function () {
+     *     //jquery load
+     *     $('#jqueryLoad').load('/autoload', null, function () {
+     *          console.info('jQuery load done', arguments);
+     *     });
+     * });
+     */
     $.fn.__load = $.fn.load;
     $.fn.load = function (url, data, callback) {
         var $this = $(this);
         $this.attr('async-autoload', url);
 
-        new AsyncHttp($this).done(function () {
+        new AsyncHttp($this).done(function (response) {
             //callback
-            (callback || $.noop)(data);
-            //trigger event
-            $this.trigger($.Event('async:load-done', { 'data': data }));
+            (callback || $.noop)(response);
+            /**
+             * Trigger when jQuery load done
+             * @memberof asyncHttp.request
+             * @event async:load-done
+             * @param {event}
+             * @example
+             * $(document).ready(function () {
+             *     //jquery load
+             *     $('#jqueryLoad').load('/autoload', null, function () {
+             *     console.info('jQuery load done', arguments);
+             *     });
+             * });
+             */
+            $this.trigger('async:load-done', [response]);
         });
     };
 

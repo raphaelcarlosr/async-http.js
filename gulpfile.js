@@ -26,15 +26,15 @@ gulp.task('changelog', function () {
   })
     .pipe(conventionalChangelog({
       // conventional-changelog options go here 
-      preset: 'jquery'
+      preset: 'angular'
     }, {
         // context goes here
       }, {
-        // git-raw-commits options go here         
+        // git-raw-commits options go here
       }, {
-        // conventional-commits-parser options go here         
+        // conventional-commits-parser options go here
       }, {
-        // conventional-changelog-writer options go here         
+        // conventional-changelog-writer options go here
       }))
     .pipe(gulp.dest('./'));
 });
@@ -80,7 +80,7 @@ gulp.task('create-new-tag', function (cb) {
 // Generating a pretty HTML documentation site
 gulp.task('generate-docs', function (cb) {
   var config = require('./jsdoc.json');
-  gulp.src(['./*.md', './src/**/*.js'], { read: false })
+  gulp.src(['./tests/*.html', './*.md', './src/**/*.js'], { read: false })
     .pipe(jsdoc(config, cb));
 });
 

@@ -5,6 +5,7 @@
 <!--[if IE 9 ]>    <html class="ie ie9" lang="pt-BR"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="pt-BR">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -51,16 +52,15 @@
         <span class="async-indicator">Loading</span>
     </div>-->
     <hr>
-    <form action="/autoload" method="post" async async-target="#response" 
-        async-confirm='Deseja realmente ?'>
+    <form action="/autoload" method="post" async async-target="#response" async-confirm='Deseja realmente ?'>
         <!--async-confirm='{"title": "Are you sure?", "text": "You will not be able to recover this imaginary file!", "type": "warning", "cancelButtonText": "No, cancel plx!", "confirmButtonText": "Yes, delete it!", "closeOnConfirm": true, "closeOnCancel": true, "showCancelButton": true}'>-->
         <span class="async-indicator">Loading</span>
         <div id="response"></div>
-        <input type="text" name="test" 
-            data-validation="length alphanumeric" data-validation-length="min4">
+        <input type="text" name="test" data-validation="length alphanumeric" data-validation-length="min4">
         <button type="submit">Send</button>
     </form>
     <hr>
+    <div id="jqueryLoad">jqueryLoad</div>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-mockjax/dist/jquery.mockjax.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
@@ -82,10 +82,16 @@
         });
 
         $.validate();
+        $(document).ready(function () {
+            //jquery load
+            $('#jqueryLoad').load('/autoload', null, function () {
+                console.info('jQuery load done', arguments);
+            });
+        });
     </script>
     <script src="../src/async-http.js"></script>
     <script>
-        $('[async-autoload], form[async], a[async]').on('async:start async:beforeSend async:error async:success async:always async:complete async:done async:fail', function (e) {
+        $('[async-autoload], form[async], a[async], #jqueryLoad').on('async:start async:beforeSend async:onprogress async:error async:success async:always async:complete async:done async:fail async:aborted async:confirm async:poll async:poll-pause async:load-done', function (e) {
             console.info(e.type, arguments);
         });
     </script>

@@ -31,13 +31,6 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
-				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="Prototype.html">Prototype</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
 					<li><a href="asyncHttp.html">asyncHttp</a></li><li><a href="asyncHttp.defaults.html">asyncHttp.defaults</a></li><li><a href="asyncHttp.request.html">asyncHttp.request</a></li>
@@ -47,7 +40,14 @@
 			<li class="dropdown">
 				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="asyncHttp.request.html#.event:async:always">asyncHttp.request.async:always</a></li><li><a href="asyncHttp.request.html#.event:async:beforeSend">asyncHttp.request.async:beforeSend</a></li><li><a href="asyncHttp.request.html#.event:async:complete">asyncHttp.request.async:complete</a></li><li><a href="asyncHttp.request.html#.event:async:confirm">asyncHttp.request.async:confirm</a></li><li><a href="asyncHttp.request.html#.event:async:done">asyncHttp.request.async:done</a></li><li><a href="asyncHttp.request.html#.event:async:error">asyncHttp.request.async:error</a></li><li><a href="asyncHttp.request.html#.event:async:fail">asyncHttp.request.async:fail</a></li><li><a href="asyncHttp.request.html#.event:async:onprogress">asyncHttp.request.async:onprogress</a></li><li><a href="asyncHttp.request.html#.event:async:poll">asyncHttp.request.async:poll</a></li><li><a href="asyncHttp.request.html#.event:async:start">asyncHttp.request.async:start</a></li><li><a href="asyncHttp.request.html#.event:async:success">asyncHttp.request.async:success</a></li>
+					<li><a href="asyncHttp.request.html#.event:async:always">asyncHttp.request.async:always</a></li><li><a href="asyncHttp.request.html#.event:async:beforeSend">asyncHttp.request.async:beforeSend</a></li><li><a href="asyncHttp.request.html#.event:async:complete">asyncHttp.request.async:complete</a></li><li><a href="asyncHttp.request.html#.event:async:confirm">asyncHttp.request.async:confirm</a></li><li><a href="asyncHttp.request.html#.event:async:done">asyncHttp.request.async:done</a></li><li><a href="asyncHttp.request.html#.event:async:error">asyncHttp.request.async:error</a></li><li><a href="asyncHttp.request.html#.event:async:fail">asyncHttp.request.async:fail</a></li><li><a href="asyncHttp.request.html#.event:async:load-done">asyncHttp.request.async:load-done</a></li><li><a href="asyncHttp.request.html#.event:async:onprogress">asyncHttp.request.async:onprogress</a></li><li><a href="asyncHttp.request.html#.event:async:poll">asyncHttp.request.async:poll</a></li><li><a href="asyncHttp.request.html#.event:async:poll-pause">asyncHttp.request.async:poll-pause</a></li><li><a href="asyncHttp.request.html#.event:async:start">asyncHttp.request.async:start</a></li><li><a href="asyncHttp.request.html#.event:async:success">asyncHttp.request.async:success</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#attrStartWith">attrStartWith</a></li><li><a href="global.html#mergeUnique">mergeUnique</a></li><li><a href="global.html#toLowerFirstLetter">toLowerFirstLetter</a></li>
 				</ul>
 			</li>
 			
@@ -970,6 +970,136 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".event:async:load-done">async:load-done</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Trigger when jQuery load done</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">$(document).ready(function () {    //jquery load    $(&#x27;#jqueryLoad&#x27;).load(&#x27;/autoload&#x27;, null, function () {    console.info(&#x27;jQuery load done&#x27;, arguments);    });});</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".event:async:onprogress">async:onprogress</h4>
     
     
@@ -1178,7 +1308,137 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">&lt;div async-autoload=&quot;/url&quot; id=&quot;example&quot;&gt;&lt;/div&gt;&lt;script&gt;$(&#x27;#example&#x27;).on(&#x27;async:poll&#x27;, function(totalExecutions){ });&lt;/script&gt;</pre>
+    <pre class="sunlight-highlight-javascript">&lt;div async-autoload=&quot;/url&quot; id=&quot;example&quot;&gt;&lt;/div&gt;&lt;script&gt;$(&#x27;#example&#x27;).on(&#x27;async:poll&#x27;, function(totalExecutions, pausedState){ });&lt;/script&gt;</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".event:async:poll-pause">async:poll-pause</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Trigger when poll pause state has changed</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">&lt;div async-autoload=&quot;/url&quot; id=&quot;example&quot;&gt;&lt;/div&gt;&lt;script&gt;$(&#x27;#example&#x27;).on(&#x27;async:poll-pause&#x27;, function(isPaused){ });&lt;/script&gt;</pre>
 
 
     
@@ -1402,7 +1662,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on March 31st 2017, 10:19:10 am
+		on March 31st 2017, 2:57:24 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
