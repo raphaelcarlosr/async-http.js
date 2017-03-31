@@ -1,0 +1,10 @@
+*.DS_Store
+*.esproj
+*.swp
+.idea/
+*.iml
+node_modules/
+bower_components/
+npm-debug.log
+
+test/browserify/bundle.js

@@ -1,0 +1,29 @@
+{
+  "name": "async-http.js",
+  "description": "Simplify async http request using only dom attributes",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "Raphael Carlos Rego <raphaelcarlosr@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "async",
+    "http"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "jquery-mockjax": "^2.2.1"
+  }  
+}
