@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/raphaelcarlosr/async-http.js.svg?branch=master)](https://travis-ci.org/raphaelcarlosr/async-http.js)
 
-## Features ##
+# [See docs](https://raphaelcarlosr.github.io/async-http.js/index.html)
+
+
+## Features
 
 * Zero configuration
 * Small
@@ -16,6 +19,6 @@
 * Event based
 * Control all request cicle from js events
 
-## TODO ##
+## TODO
 
 * Undo (prevent send request)
