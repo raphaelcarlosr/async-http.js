@@ -2,7 +2,7 @@
   "name": "async-http.js",
   "description": "Simplify async http request using only dom attributes",
   "main": "index.js",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "authors": [
     "Raphael Carlos Rego <raphaelcarlosr@gmail.com>"
   ],
@@ -24,6 +24,7 @@
     "jquery": "^3.2.1"
   },
   "devDependencies": {
-    "jquery-mockjax": "^2.2.1"
-  }  
+    "jquery-mockjax": "^2.2.1",
+    "qunit": "^2.3.0"
+  }
 }

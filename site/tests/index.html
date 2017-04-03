@@ -18,7 +18,7 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <title>async-http.js - Simplify async requests</title>
     <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>-->
-
+    
 </head>
 
 <body>
@@ -48,9 +48,6 @@
         <span class="async-indicator">Loading</span>
         <p id="target"></p>
     </div>
-    <!--<div async-autoload="response.html">
-        <span class="async-indicator">Loading</span>
-    </div>-->
     <hr>
     <form action="/autoload" method="post" async async-target="#response" async-confirm='Deseja realmente ?'>
         <!--async-confirm='{"title": "Are you sure?", "text": "You will not be able to recover this imaginary file!", "type": "warning", "cancelButtonText": "No, cancel plx!", "confirmButtonText": "Yes, delete it!", "closeOnConfirm": true, "closeOnCancel": true, "showCancelButton": true}'>-->
@@ -63,23 +60,16 @@
     <div id="jqueryLoad">jqueryLoad</div>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-mockjax/dist/jquery.mockjax.min.js"></script>
+    <script src="mock-ajax.js"></script>
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>-->
+    
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>    
+    <script src="../bower_components/qunit/qunit/qunit.js"></script>    
+    <script src="../src/async-http.js"></script>
     <script>
-        $.mockjaxSettings['responseTime'] = 100;
-        $.mockjax({
-            url: "/autoload",
-            responseTime: 1000 * 1,
-            response: function (settings) {
-                this.responseText = (new Date).toString() + '<br/>';
-            }
-        });
-        $.mockjax({
-            url: "/autoload-stack",
-            response: function (settings) {
-                this.responseText = (new Date).toString() + '<br/>From stack <br/><div async-autoload="/autoload"><span class="async-indicator">Loading</span></div>';
-            }
-        });
+        
 
         $.validate();
         $(document).ready(function () {
@@ -88,8 +78,7 @@
                 console.info('jQuery load done', arguments);
             });
         });
-    </script>
-    <script src="../src/async-http.js"></script>
+    </script>    
     <script>
         $('[async-autoload], form[async], a[async], #jqueryLoad').on('async:start async:beforeSend async:onprogress async:error async:success async:always async:complete async:done async:fail async:aborted async:confirm async:poll async:poll-pause async:load-done', function (e) {
             console.info(e.type, arguments);

@@ -3,11 +3,13 @@
         "allowUnknownTags": true
     },
     "opts": {
-        "destination": "./docs/"
+        "destination": "./site/docs/"
     },
     "plugins": [
-        "plugins/markdown"
+        "plugins/markdown",
+        "plugins/summarize"
     ],
+    "tutorials": "./tutorials",
     "templates": {
         "cleverLinks": false,
         "monospaceLinks": false,

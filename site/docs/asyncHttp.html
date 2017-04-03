@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>async-http.js Class: defaults</title>
+	<title>async-http.js Class: asyncHttp</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,18 +79,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: defaults</h1>
+	<h1 class="page-title">Class: asyncHttp</h1>
 <section>
 
 <header>
     
         <h2>
-            <span class="ancestors"><a href="asyncHttp.html">asyncHttp</a>.</span>
-        
-        defaults
+        asyncHttp
         </h2>
         
-            <div class="class-description"><p>defaults {object}</p></div>
+            <div class="class-description"><p>Abstract class representing async request controler</p></div>
         
     
 </header>
@@ -102,15 +100,17 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="defaults"><span class="type-signature"></span>new defaults()</h4>
+    <h4 class="name" id="asyncHttp"><span class="type-signature"></span>new asyncHttp()</h4>
     
+    
+    <p class="summary"><p>The async name space</p>.</p>
     
 </dt>
 <dd>
 
     
     <div class="description">
-        <p>Default async options</p>
+        <p>The async name space</p>
     </div>
     
 
@@ -174,12 +174,6 @@
     
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">asyncHttp.defaults.processIndicator = &#x27;.default-load-mask:first&#x27;;asyncHttp.defaults.renderMethod = asyncHttp.RENDER_METHOD.append;</pre>
-
-
-    
 </dd>
 
     
@@ -189,6 +183,16 @@
 
     
 
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="asyncHttp.defaults.html">defaults</a></dt>
+            <dd><p>Default async options</p>.</dd>
+        
+            <dt><a href="asyncHttp.request.html">request</a></dt>
+            <dd><p>Create an async http and return handler, but do not worry, you do not need this</p>.</dd>
+        </dl>
     
 
     
@@ -201,15 +205,17 @@
         <dl>
             
 <hr>
-<dt class="name" id=".actionDone">
-    <h4 id=".actionDone"><span class="type-signature">&lt;static> </span>actionDone<span class="type-signature"></span></h4>
+<dt class="name" id=".isOnLine">
+    <h4 id=".isOnLine"><span class="type-signature">&lt;static> </span>isOnLine<span class="type-signature"></span></h4>
 
+    
+    <p class="summary"><p>Navigator is online events</p>.</p>
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>The on target when done</p>
+        <p>Navigator is online events</p>
     </div>
     
 
@@ -245,630 +251,13 @@
 
         <tr>
             
-                <td class="name"><code>actionDone</code></td>
+                <td class="name"><code>isOnLine</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The action done sentence</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>[data-]async-action-done</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id=".actionTarget">
-    <h4 id=".actionTarget"><span class="type-signature">&lt;static> </span>actionTarget<span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The on target selector target</p>
-    </div>
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>actionTarget</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The action done selector</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>[data-]async-action-target</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id=".poll">
-    <h4 id=".poll"><span class="type-signature">&lt;static> </span>poll<span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The poll timer</p>
-    </div>
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>poll</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The poll timer</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>[data-]async-poll</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">&lt;div async-autoload=&quot;/autoload&quot; async-poll=&quot;10s&quot;&gt;&lt;/div&gt;&lt;div async-autoload=&quot;/autoload&quot; async-poll=&quot;10m&quot;&gt;&lt;/div&gt;&lt;div async-autoload=&quot;/autoload&quot; async-poll=&quot;10&quot;&gt;&lt;/div&gt;</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id=".pollRepeats">
-    <h4 id=".pollRepeats"><span class="type-signature">&lt;static> </span>pollRepeats<span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The poll repets time</p>
-    </div>
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pollRepeats</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The number of max repeats</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>[data-]async-poll-repeats</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id=".processIndicator">
-    <h4 id=".processIndicator"><span class="type-signature">&lt;static> </span>processIndicator<span class="type-signature"></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Selector for default process indicator</p>
-    </div>
-    
-
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>processIndicator</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The process indicator selector</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-</dl>
-
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>[data-]async-process-indicator</li>
-		</ul>
-	</dd>
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id=".renderMethod">
-    <h4 id=".renderMethod"><span class="type-signature">&lt;static> </span>renderMethod<span class="type-signature"> :<a href="asyncHttp.html#.RENDER_METHOD">asyncHttp.RENDER_METHOD</a></span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Replace target if true</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type"><a href="asyncHttp.html#.RENDER_METHOD">asyncHttp.RENDER_METHOD</a></span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    <dl>
-
-<table class="props table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>renderMethod</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="asyncHttp.html#.RENDER_METHOD">asyncHttp.RENDER_METHOD</a></span>
+<span class="param-type">bool</span>
 
 
 
@@ -912,12 +301,199 @@
 	
 
 	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>asyncHttp.RENDER_METHOD.replace</li>
-		</ul>
-	</dd>
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id=".RENDER_METHOD">
+    <h4 id=".RENDER_METHOD"><span class="type-signature">&lt;static> </span>RENDER_METHOD<span class="type-signature"> :number</span></h4>
+
+    
+    <p class="summary"><p>The render method</p>.</p>
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The render method</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>prepend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>Prepend</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>replace</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last"><p>Replace</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>append</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    2
+                
+                </td>
+            
+
+            <td class="description last"><p>Append</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
@@ -945,15 +521,17 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".confirmHandlerTheconfirmhandler"><span class="type-signature">&lt;static> </span>confirmHandler The confirm handler()</h4>
+    <h4 class="name" id=".cancelCurrentRequest"><span class="type-signature">&lt;static> </span>cancelCurrentRequest()</h4>
     
+    
+    <p class="summary"><p>Cancel current request</p>.</p>
     
 </dt>
 <dd>
 
     
     <div class="description">
-        <p>The confirm handler</p>
+        <p>Cancel current request</p>
     </div>
     
 
@@ -990,13 +568,6 @@
 
 	
 
-	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>confirm('async-[data-confirm="Confirm this action"]')</li>
-		</ul>
-	</dd>
 	
 
 
@@ -1033,7 +604,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">void</span>
 
 
 
@@ -1044,10 +615,134 @@
         
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">&lt;form action=&quot;/delete&quot; method=&quot;delete&quot; async async-confirm=&quot;Confirm this action?&quot;&gt;&lt;/form&gt;</pre>
+</dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".getAbsoluteUrl"><span class="type-signature">&lt;static> </span>getAbsoluteUrl(path)</h4>
+    
+    
+    <p class="summary"><p>Get the absolute app url and concatenate with path</p>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the absolute app url and concatenate with path</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The path to concatenate</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 </dd>
@@ -1056,15 +751,17 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".jsonHandler"><span class="type-signature">&lt;static> </span>jsonHandler()</h4>
+    <h4 class="name" id=".hasAsyncRequest"><span class="type-signature">&lt;static> </span>hasAsyncRequest()</h4>
     
+    
+    <p class="summary"><p>Detects if has an async request in curse</p>.</p>
     
 </dt>
 <dd>
 
     
     <div class="description">
-        <p>Default json request processor</p>
+        <p>Detects if has an async request in curse</p>
     </div>
     
 
@@ -1102,12 +799,159 @@
 	
 
 	
-	<dt class="tag-default method-doc-label method-doc-details-label">Default Value:</dt>
-	<dd class="tag-default">
-		<ul class="dummy">
-			<li>$.noop</li>
-		</ul>
-	</dd>
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>True if any request is in curse</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".togglePollState"><span class="type-signature">&lt;static> </span>togglePollState(context)</h4>
+    
+    
+    <p class="summary"><p>Toggle poll state (paused or not)</p>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Toggle poll state (paused or not)</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The jquery element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
@@ -1211,7 +1055,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on March 31st 2017, 3:13:25 pm
+		on April 3rd 2017, 10:57:57 am
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

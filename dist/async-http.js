@@ -1,3 +1,10 @@
+/**
+ * async-http.js - Simplify async http request using only dom attributes
+ * @version v0.0.6
+ * @link https://github.com/raphaelcarlosr/async-http.js
+ * @license ISC
+ * @author Raphael Carlos Rego <raphaelcarlosr@gmail.com>
+ */
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
