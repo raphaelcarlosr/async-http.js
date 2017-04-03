@@ -44,7 +44,7 @@ function getPackageJsonName() {
  * Clean all distribuion path
  */
 gulp.task('clean', function () {
-  return gulp.src(['.tmp', './dist', './site'], { read: false })
+  return gulp.src(['.tmp', './dist', './docs'], { read: false })
     .pipe(clean())
     .pipe(size({ title: 'clean' }));
 });
@@ -65,7 +65,7 @@ gulp.task('manifest', function () {
       filename: 'cache.manifest',
       exclude: 'cache.manifest'
     }))
-    .pipe(gulp.dest('./site'))
+    .pipe(gulp.dest('./docs'))
     .pipe(size({ title: 'Cache manifest' }));
 
   //all manifests
@@ -82,15 +82,15 @@ gulp.task('manifest', function () {
  */
 gulp.task('copy', function () {
   gulp.src(['./src/samples/*.*/'], { dot: true })
-    .pipe(gulp.dest('./site/samples'))
+    .pipe(gulp.dest('./docs/samples'))
     .pipe(size({ title: 'samples' }));
 
   gulp.src(['./src/tutorials/*.*'], { dot: true })
-    .pipe(gulp.dest('./site/tutorials'))
+    .pipe(gulp.dest('./docs/tutorials'))
     .pipe(size({ title: 'samples' }));
 
   gulp.src(['./src/tests/*.*'], { dot: true })
-    .pipe(gulp.dest('./site/tests'))
+    .pipe(gulp.dest('./docs/tests'))
     .pipe(size({ title: 'samples' }));
 });
 

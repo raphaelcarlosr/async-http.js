@@ -1,6 +1,6 @@
 {
   "name": "async-http.js",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Simplify async http request using only dom attributes",
   "main": "index.js",
   "private": true,
