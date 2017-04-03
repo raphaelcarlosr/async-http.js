@@ -81,17 +81,17 @@ gulp.task('manifest', function () {
  * Copy all samples and tutorials to docs folder
  */
 gulp.task('copy', function () {
-  gulp.src(['./src/samples/*.*/'], { dot: true })
-    .pipe(gulp.dest('./docs/samples'))
+  gulp.src(['./site/**/*.*/'], { dot: true })
+    .pipe(gulp.dest('./docs/'))
     .pipe(size({ title: 'samples' }));
 
-  gulp.src(['./src/tutorials/*.*'], { dot: true })
-    .pipe(gulp.dest('./docs/tutorials'))
-    .pipe(size({ title: 'samples' }));
+  // gulp.src(['./site/tutorials/*.*'], { dot: true })
+  //   .pipe(gulp.dest('./docs/tutorials'))
+  //   .pipe(size({ title: 'samples' }));
 
-  gulp.src(['./src/tests/*.*'], { dot: true })
-    .pipe(gulp.dest('./docs/tests'))
-    .pipe(size({ title: 'samples' }));
+  // gulp.src(['./site/tests/*.*'], { dot: true })
+  //   .pipe(gulp.dest('./docs/tests'))
+  //   .pipe(size({ title: 'samples' }));
 });
 
 /**
