@@ -1,6 +1,6 @@
 /**
  * async-http.js - Simplify async http request using only dom attributes
- * @version v0.0.8
+ * @version v0.0.13
  * @link https://github.com/raphaelcarlosr/async-http.js
  * @license ISC
  * @author Raphael Carlos Rego <raphaelcarlosr@gmail.com>
@@ -471,7 +471,8 @@
                         value = _private.getProcessIndicators(element, value);
                         break;
                     case 'target':
-                        value = $.merge($(value), element).first();
+                        value = $(value);
+                        if (value.length === 0) value = element;
                         break;
                     case 'poll':
                         if (isNaN(value) === false) {
@@ -605,11 +606,43 @@
              * </script>
              */
             'complete': function (xhr, textStatus) {
-                // console.log('async-http complete');
-                //trigger event
-                $(this).trigger('async:complete', [xhr, textStatus]);
+                var context = $(this);
 
-                console.groupEnd();
+                //trigger event
+                context.trigger('async:complete', [xhr, textStatus]);
+
+                //send request to google analytics
+                if ((typeof ga !== "undefined")) {
+                    ga('send', 'pageview', {
+                        'location': this.settings.url,
+                        'hitCallback': function () {
+                            /**
+                             * Trigger when google analytics(if exists) send is done
+                             * @memberof asyncHttp.request
+                             * @event async:ga-done
+                             * @example
+                             * <div async-autoload="/url" id="example"></div>
+                             * <script>
+                             * $('#example').on('async:ga-done', function(asyncHttpRequestInstance){ });
+                             * </script>
+                             */
+                            context.trigger('async:ga-done', [context]);
+                            //close console group
+                            console.groupEnd();
+
+                            //check events
+                            if ("gaEventAction" in attrOptions) {
+                                ga('send', 'event', {
+                                    eventCategory: attrOptions.gaEventCategory || "UnCategorized",
+                                    eventAction: attrOptions.gaEventAction || 'click',
+                                    eventLabel: attrOptions.gaEventLabel || context.is('a') ? $.trim(context.text()) : 'Not seted'
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    console.groupEnd();
+                }
 
                 //continuos queue run;
                 _private.runQueue();
@@ -630,6 +663,14 @@
      * });
      */
     var AsyncHttp = asyncHttp.request = function (context, options) {
+        //create an empty context
+        if (context === undefined || context === null) { context = $(); }
+        else if ($.isPlainObject(context) && $.isEmptyObject(context) && context.url !== undefined) {
+            //assume context as options
+            options = context;
+            //empty context 
+            context = $();
+        }
         context = context instanceof jQuery ? context : $(context);
         var me = this;
 
@@ -882,7 +923,7 @@
      * @event
      * @private
      */
-    $('a[async]', document).on('click', function (e) {
+    $(document).on('click', 'a[async]', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var me = $(this);
@@ -894,7 +935,7 @@
      * @event
      * @private
      */
-    $('form[async]', document).on('submit', function (e) {
+    $(document).on('submit', 'form[async]', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var me = $(this);

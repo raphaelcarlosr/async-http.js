@@ -1,0 +1,9 @@
+{
+    "short_name": "async-http.js",
+    "name": "Async Http - Simplify async http request using only dom attributes",
+	"version": "0.0.12",
+    "start_url": "./?homescreen=1",
+    "display": "standalone",
+	"gcm_sender_id": "60892688820",  
+	"gcm_user_visible_only": true  
+}

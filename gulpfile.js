@@ -16,6 +16,11 @@ var header = require('gulp-header');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var htmlmin = require('gulp-htmlmin');
+var gulpif = require('gulp-if');
+var markdownDocs = require('gulp-markdown-docs');
+var tap = require('gulp-tap');
+
 
 var package = require('./package.json');
 var banner = ['/**',
@@ -46,52 +51,52 @@ function getPackageJsonName() {
 gulp.task('clean', function () {
   return gulp.src(['.tmp', './dist', './docs'], { read: false })
     .pipe(clean())
-    .pipe(size({ title: 'clean' }));
+    .pipe(size({ title: 'clean'}));
 });
 
-/**
- * Generate a manifest files
- */
-gulp.task('manifest', function () {
-  //cache manifest
-  gulp.src([
-    '!dist/**/*.{eot,woff,woff2,svg,ttf}',
-    'dist/**/*'
-  ])
-    .pipe(manifest({
-      hash: true,
-      preferOnline: true,
-      network: ['https://*', '*'],
-      filename: 'cache.manifest',
-      exclude: 'cache.manifest'
-    }))
-    .pipe(gulp.dest('./docs'))
-    .pipe(size({ title: 'Cache manifest' }));
-
-  //all manifests
-  return gulp.src(['Manifest/**/*'])
-    .pipe(replace("@@version", getPackageJsonVersion()))
-    .pipe(replace("@@timestamp", new Date().toString()))
-    .pipe(gulp.dest('.tmp'))
-    .pipe(gulp.dest('Public'));
-
-});
 
 /**
  * Copy all samples and tutorials to docs folder
  */
-gulp.task('copy', function () {
-  gulp.src(['./site/**/*.*/'], { dot: true })
+gulp.task('dist-site', function () {
+  gulp.src(['**/*.md/'], { dot: true })
+    .pipe(tap(function (file, t) {
+      return markdownDocs(file);
+    }))
+    .pipe(htmlmin({
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes: true,
+      removeRedundantAttributes: true,
+      removeEmptyAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      removeOptionalTags: true,
+      minifyJS: true
+    }))
     .pipe(gulp.dest('./docs/'))
-    .pipe(size({ title: 'samples' }));
+    .pipe(size({ title: 'markdown html', showFiles: true }));
 
-  // gulp.src(['./site/tutorials/*.*'], { dot: true })
-  //   .pipe(gulp.dest('./docs/tutorials'))
-  //   .pipe(size({ title: 'samples' }));
+  gulp.src(['./src/site/**/*.*/'], { dot: true })
+    .pipe(gulpif(/\.html$/, htmlmin({
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes: true,
+      removeRedundantAttributes: true,
+      removeEmptyAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      removeOptionalTags: true,
+      minifyJS: true
+    })))
+    .pipe(gulpif(/\.html$/, size({ title: 'html', showFiles: true })))
+    .pipe(gulpif(/\.js$/, uglify({ preserveComments: 'some' })))
+    .pipe(gulpif(/\.js$/, size({ title: 'js', showFiles: true })))
+    .pipe(gulp.dest('./docs/'))
+    .pipe(size({ title: 'site-dist' }));
 
-  // gulp.src(['./site/tests/*.*'], { dot: true })
-  //   .pipe(gulp.dest('./docs/tests'))
-  //   .pipe(size({ title: 'samples' }));
 });
 
 /**
@@ -103,10 +108,11 @@ gulp.task('dist', function () {
     .pipe(replace("@@version", getPackageJsonVersion()))
     .pipe(header(banner, { pkg: package }))
     .pipe(gulp.dest('./dist'))
+    .pipe(size({ showFiles: true }))
     .pipe(rename('async-http.min.js'))
     .pipe(uglify({ preserveComments: 'some' }))
     .pipe(gulp.dest('./dist'))
-    .pipe(size({ title: 'dist' }));
+    .pipe(size({ showFiles: true }));
 });
 
 /**
@@ -150,7 +156,8 @@ gulp.task('bump-version', function () {
   // We hardcode the version change type to 'patch' but it may be a good idea to
   // use minimist (https://www.npmjs.com/package/minimist) to determine with a
   // command argument whether you are doing a 'major', 'minor' or a 'patch' change.
-  return gulp.src(['./bower.json', './package.json'])
+  //major: 1.0.0 | minor: 0.1.0 | patch: 0.0.2 | prerelease: 0.0.1-2
+  return gulp.src(['./bower.json', './package.json', './src/site/manifest.webapp', './src/site/manifest.json'])    
     .pipe(bump({ type: "patch" }).on('error', gutil.log))
     .pipe(gulp.dest('./'));
 });
@@ -193,12 +200,11 @@ gulp.task('generate-docs', function (cb) {
     .pipe(jsdoc(config, cb));
 });
 
-gulp.task('build', [], function (callback) {
+gulp.task('build', function (callback) {
   runSequence(
     'clean',
-    'manifest',
     'generate-docs',
-    'copy',
+    'dist-site',
     'dist',
     function (error) {
       if (error) {
