@@ -2,6 +2,13 @@
 
 # [See docs](https://raphaelcarlosr.github.io/async-http.js/index.html)
 
+[![GitHub forks](https://img.shields.io/github/forks/badges/async-http.js.svg?label=Fork)](https://github.com/raphaelcarlosr/async-http.js)
+[![GitHub stars](https://img.shields.io/github/stars/badges/async-http.js.svg?label=Star)](https://github.com/raphaelcarlosr/async-http.js)
+[![Github Releases](https://img.shields.io/github/downloads/raphaelcarlosr/async-http.js/latest/total.svg?label=Release downloads)](https://github.com/raphaelcarlosr/async-http.js)
+[![Github All Releases](https://img.shields.io/github/downloads/raphaelcarlosr/async-http.js/total.svg?label=Total downloads)](https://github.com/raphaelcarlosr/async-http.js)
+[![Bower](https://img.shields.io/bower/v/async-http.js.svg)](https://github.com/raphaelcarlosr/async-http.js)
+[![GitHub followers](https://img.shields.io/github/followers/raphaelcarlosr.svg?label=Follow)](https://github.com/raphaelcarlosr/async-http.js)
+
 
 ## Features
 

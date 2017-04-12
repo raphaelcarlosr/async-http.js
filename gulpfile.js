@@ -40,7 +40,7 @@ function getPackageJsonName() {
   return JSON.parse(fs.readFileSync('./package.json', 'utf8')).name;
 }
 
-var pass = require('./passwords.json');
+var pass = require('./secrets.json');
 
 /**
  * Clean all distribuion path

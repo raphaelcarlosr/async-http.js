@@ -1,6 +1,6 @@
 {
   "name": "async-http.js",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Simplify async http request using only dom attributes",
   "main": "index.js",
   "private": true,
@@ -10,10 +10,7 @@
   "dependencies": {
     "bower": "^1.8.0"
   },
-  "repository": {
-    "url": "https://github.com/raphaelcarlosr/async-http.js.git",
-    "type": "git"
-  },
+  "repository": "https://github.com/raphaelcarlosr/async-http.js.git",
   "homepage": "https://github.com/raphaelcarlosr/async-http.js",
   "devDependencies": {
     "conventional-github-releaser": "^1.1.3",

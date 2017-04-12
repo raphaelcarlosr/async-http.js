@@ -9,4 +9,4 @@ npm-debug.log
 
 test/browserify/bundle.js
 ./gulpfile.js
-passwords.json
+secrets.json

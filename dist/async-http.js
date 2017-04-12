@@ -1,6 +1,6 @@
 /**
  * async-http.js - Simplify async http request using only dom attributes
- * @version v0.0.15
+ * @version v0.0.16
  * @link https://github.com/raphaelcarlosr/async-http.js
  * @license ISC
  * @author Raphael Carlos Rego <raphaelcarlosr@gmail.com>
