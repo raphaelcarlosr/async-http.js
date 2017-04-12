@@ -2,7 +2,7 @@
   "name": "async-http.js",
   "description": "Simplify async http request using only dom attributes",
   "main": "index.js",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "authors": [
     "Raphael Carlos Rego <raphaelcarlosr@gmail.com>"
   ],
