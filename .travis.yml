@@ -4,4 +4,3 @@ before_script:
 install:  
   - npm install
   - bower install
-script: gulp build
