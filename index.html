@@ -11,19 +11,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="application-name" content="async-http.js" />
     <meta name="apple-mobile-web-app-title" content="async-http.js" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="HandheldFriendly" content="true" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
     <title>async-http.js - Simplify async requests</title>
 
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="./site/manifest.json">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-    <link rel="stylesheet" href="./site.css">
+    <link rel="stylesheet" href="./site/site.css">
 
 </head>
 
@@ -31,20 +30,20 @@
     <div class="navbar-fixed">
         <nav class="white" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="./pages/home.html" class="brand-logo">
-                    <img src="./images/logo.png" alt="async-http.js" width="40" height="40">
+                <a id="logo-container" href="./site/pages/home.html" class="brand-logo">
+                    <img src="./site/images/logo.png" alt="async-http.js" width="40" height="40">
                 </a>
 
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="./pages/getting-started.html"><i class="fa fa-star"></i> Getting Started</a></li>
-                    <li><a href="./samples/index.html"><i class="fa fa-bookmark"></i> Samples</a></li>
+                    <li><a href="./site/pages/getting-started.html"><i class="fa fa-star"></i> Getting Started</a></li>
+                    <li><a href="./site/samples/index.html"><i class="fa fa-bookmark"></i> Samples</a></li>
                     <li><a href="collapsible.html">Javascript</a></li>
                     <li><a href="mobile.html">Mobile</a></li>
                     <li><a href="badges.html">Link with Right Icon</a></li>
                 </ul>
                 <ul class="side-nav" id="nav-mobile">
-                    <li><a href="./pages/getting-started.html"><i class="fa fa-star"></i> Getting Started</a></li>
-                    <li><a href="./samples/index.html"><i class="fa fa-bookmark"></i> Samples</a></li>
+                    <li><a href="./site/pages/getting-started.html"><i class="fa fa-star"></i> Getting Started</a></li>
+                    <li><a href="./site/samples/index.html"><i class="fa fa-bookmark"></i> Samples</a></li>
                     <li><a href="badges.html">Components</a></li>
                     <li><a href="collapsible.html">Javascript</a></li>
                     <li><a href="mobile.html">Mobile</a></li>
@@ -65,7 +64,7 @@
                     <h5 class="header col s12 light">Simplify async http request using only dom attributes</h5>
                 </div>
                 <div class="row center">
-                    <a href="./pages/getting-started.html" class="btn-large waves-effect waves-light grey darken-4"
+                    <a href="./site/pages/getting-started.html" class="btn-large waves-effect waves-light grey darken-4"
                         async-ga-event-action="Getting Started">
                         <i class="fa fa-star"></i> Get Started
                     </a>
@@ -74,9 +73,9 @@
 
             </div>
         </div>
-        <div class="parallax"><img src="./images/async.png" alt=""></div>
+        <div class="parallax"><img src="./site/images/async.png" alt=""></div>
     </div>
-    <div class="container" id="main" async-autoload="./pages/home.html">
+    <div class="container" id="main" async-autoload="./site/pages/home.html">
 
     </div>
     <footer class="page-footer">
@@ -107,8 +106,8 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mockjax/1.6.2/jquery.mockjax.min.js"></script>
-    <script src="./site.js"></script>
-    <script src="../../src/async-http.js"></script>
+    <script src="./site/site.js"></script>
+    <script src="./src/async-http.js"></script>
     <script>
         (function ($) {
             // asyncHttp.defaults.processIndicator = '.progress-line:first';

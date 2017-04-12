@@ -74,12 +74,6 @@
     };
 
     /**
-     * @constant USE_ACTUAL_HTTP_METHOD
-     * @private
-     */
-    var USE_ACTUAL_HTTP_METHOD = $('meta[name="async-http:use-actual-http-method"]').attr("content") == "true";
-
-    /**
     * The async name space
     * @class asyncHttp
     * @classdesc Abstract class representing async request controler
@@ -180,12 +174,22 @@
      */
     asyncHttp.defaults = {
         /**
+       * Default async text options
+       * @memberof defaults
+       * @class texts {object}
+       * @example
+       * asyncHttp.defaults.texts.ConfirmExit = 'Hay una solicitud en curso, realmente quiere dejar?';
+       */
+        "texts": {
+            "ConfirmExit": "A request is in progress, do you really want to exit and cancel the current process?"
+        },
+        /**
          * Selector for default process indicator
          * @memberof asyncHttp.defaults
          * @property processIndicator {string} The process indicator selector
          * @default [data-]async-process-indicator
          */
-        processIndicator: undefined,
+        "processIndicator": undefined,
         /**
          * Replace target if true
          * @memberof asyncHttp.defaults
@@ -193,39 +197,28 @@
          * @type asyncHttp.RENDER_METHOD
          * @default asyncHttp.RENDER_METHOD.replace
          */
-        renderMethod: asyncHttp.RENDER_METHOD.replace,
+        "renderMethod": asyncHttp.RENDER_METHOD.replace,
         /**
          * The on target when done
          * @memberof asyncHttp.defaults
          * @property actionDone {string} The action done sentence
          * @default [data-]async-action-done
          */
-        actionDone: undefined,
+        "actionDone": undefined,
         /**
          * The on target selector target
          * @memberof asyncHttp.defaults
          * @property actionTarget {string} The action done selector
          * @default [data-]async-action-target
          */
-        actionTarget: undefined,
-        /**
-         * The poll timer
-         * @memberof asyncHttp.defaults
-         * @property poll {string}  The poll timer
-         * @default [data-]async-poll
-         * @example
-         * <div async-autoload="/autoload" async-poll="10s"></div>
-         * <div async-autoload="/autoload" async-poll="10m"></div>
-         * <div async-autoload="/autoload" async-poll="10"></div>
-         */
-        poll: undefined,
+        "actionTarget": undefined,
         /**
          * The poll repets time
          * @memberof asyncHttp.defaults
          * @property pollRepeats {number} The number of max repeats
          * @default [data-]async-poll-repeats
          */
-        pollRepeats: undefined,
+        "pollRepeats": undefined,
         /**
          * Default json request processor 
          * @memberof asyncHttp.defaults
@@ -233,7 +226,7 @@
          * @return {void}
          * @default $.noop
          */
-        jsonHandler: $.noop,
+        "jsonHandler": $.noop,
 
         /**
          * The confirm handler
@@ -243,7 +236,7 @@
          * @default confirm('async-[data-confirm="Confirm this action"]')
          * @example <form action="/delete" method="delete" async async-confirm="Confirm this action?"></form>
          */
-        confirmHandler: function (params) {
+        "confirmHandler": function (params) {
             var promise = $.Deferred();
             return promise.resolve(confirm(params)).promise();
 
@@ -419,15 +412,77 @@
             style.sheet.insertRule('.async-indicator{display:none;}', 0);
 
             return style.sheet;
-        })()
+        })(),
         /**
-        * Fix attribute get and seters for element
-        
-        getAttr: function (element, name) {
-            return element.attr(name) || element.attr('data-' + name);
+         * Parse option by name
+         * @memberof _private
+         * @method parseAction
+         * @param {string} name The config name
+         * @param {string} value The config value
+         * @return {object} Parsed value object
+         */
+        parseOption: function (name, value, element) {
+            element = element||document;
+            switch (name) {
+                case 'renderMethod':
+                    value = asyncHttp.RENDER_METHOD[value];
+                    break;
+                case 'processIndicator':
+                    value = _private.getProcessIndicators(element, value);
+                    break;
+                case 'target':
+                    value = $(value);
+                    if (value.length === 0) value = element;
+                    break;
+                case 'poll':
+                    if (isNaN(value) === false) {
+                        value = parseInt(value) * 1000;
+                    }
+                    else if (value.lastIndexOf("ms") == value.length - 2) {
+                        value = parseFloat(value.substr(0, value.length - 2));
+                    } else if (value.lastIndexOf("s") == value.length - 1) {
+                        value = parseFloat(value.substr(0, value.length - 1)) * 1000;
+                    } else {
+                        value = 1000;
+                    }
+                    break;
+                case 'pollRepeats':
+                    value = parseInt(value);
+                    break;
+            }
+            return value;
         }
-        */
     };
+
+    // process default values by metatags
+    $('meta[name^="async:"]').each(function (index, meta) {
+        meta = $(meta);
+        var name = meta.attr('name').replace(/async\:/gi, '').replace(/\:/gi, '.'),
+            value = meta.attr('content');
+
+        if (name.indexOf('.') >= 0) {
+            var names = name.split('.'),
+                lastName = null;
+
+            for (var i = 0, l = names.length; i < l; i++) {
+                var item = names[i],
+                    config = null;
+
+                if (lastName) {
+                    asyncHttp.defaults[lastName][item] = value;
+                }
+
+                if (item in asyncHttp.defaults && $.isPlainObject(asyncHttp.defaults[item])) {
+                    lastName = item;
+                } else {
+                    lastName = null;
+                }
+            }
+        } else if (name in asyncHttp.defaults) {
+            value = _private.parseOption(name, value);
+            asyncHttp.defaults[name] = value;
+        }
+    });
 
     /**
      * Parse options from element
@@ -456,33 +511,8 @@
                 }
 
                 //converts
-                switch (name) {
-                    case 'renderMethod':
-                        value = asyncHttp.RENDER_METHOD[value];
-                        break;
-                    case 'processIndicator':
-                        value = _private.getProcessIndicators(element, value);
-                        break;
-                    case 'target':
-                        value = $(value);
-                        if (value.length === 0) value = element;
-                        break;
-                    case 'poll':
-                        if (isNaN(value) === false) {
-                            value = parseInt(value) * 1000;
-                        }
-                        else if (value.lastIndexOf("ms") == value.length - 2) {
-                            value = parseFloat(value.substr(0, value.length - 2));
-                        } else if (value.lastIndexOf("s") == value.length - 1) {
-                            value = parseFloat(value.substr(0, value.length - 1)) * 1000;
-                        } else {
-                            value = 1000;
-                        }
-                        break;
-                    case 'pollRepeats':
-                        value = parseInt(value);
-                        break;
-                }
+                value = _private.parseOption(name, value, element);
+                //set                
                 returnvValue[name] = value;
             }
             return returnvValue;
@@ -499,6 +529,22 @@
 
         //always set target
         if (attrOptions.target === undefined) attrOptions.target = element;
+
+        //if form, set request type by method
+        if (element.is('form')) {
+            //set request type
+            attrOptions.type = element.attr('method');
+            //
+            var _method = element.find(':hidden[name="_method"]');
+            if (_method.length === 0) {
+                _method = $('<input type="hidden" name="_method"/>');
+                element.prepend(_method);
+            }
+            _method.val(attrOptions.type.toLowerCase());
+
+            //send form data
+            attrOptions.data = element.serialize();
+        }
 
         //extend from defaults
         attrOptions = $.extend({}, asyncHttp.defaults, attrOptions, options);
@@ -906,7 +952,7 @@
      * @event
      * @private 
      */
-    $(document).on('click', 'a[disabled]', function (e) {
+    $(document).on('click', 'a[disabled], a.disabled', function (e) {
         e.preventDefault();
         e.stopPropagation();
     });
@@ -920,6 +966,7 @@
         e.preventDefault();
         e.stopPropagation();
         var me = $(this);
+        if (me.is(':disabled') || me.hasClass('disabled') || me.parents('.disabled, [disabled]').length > 0) { return void (0); }
         var request = new AsyncHttp(me);
     });
 
@@ -931,11 +978,32 @@
     $(document).on('submit', 'form[async]', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var me = $(this);
-        if ($.fn && $.fn.button) {
-            $(':submit, :reset', me).button('loading');
+        var me = $(this),
+            buttons = $(':submit, :reset', me),
+            hasBootstapButton = $.fn && $.fn.button;
+
+        if (hasBootstapButton) {
+            buttons.button('loading');
         }
-        new AsyncHttp(me);
+
+        new AsyncHttp(me).done(function () {
+            if (hasBootstapButton) {
+                buttons.button('reset');
+            }
+
+            /**
+           * Trigger when submit form done
+           * @memberof asyncHttp.request
+           * @event async:submit-done
+           * @param {event}
+           * @example
+           * <form action="/url" method="post" async></div>
+           * <script>
+           * $('#example').on('async:submit-done', function(){ });
+           * </script>
+           */
+            me.trigger('async:submit-done');
+        });
     });
 
     /**
@@ -953,8 +1021,8 @@
      * @private
      */
     $(window).on('beforeunload', function (e) {
-        if (asyc.hasAsyncRequest()) {
-            return "Existe uma solicitação em andamento, deseja realmente sair?";
+        if (asyncHttp.hasAsyncRequest()) {
+            return asyncHttp.defaults.texts.ConfirmExit;
         }
     });
 

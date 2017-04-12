@@ -16,11 +16,6 @@ var header = require('gulp-header');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
-var htmlmin = require('gulp-htmlmin');
-var gulpif = require('gulp-if');
-var markdownDocs = require('gulp-markdown-docs');
-var tap = require('gulp-tap');
-
 
 var package = require('./package.json');
 var banner = ['/**',
@@ -45,59 +40,17 @@ function getPackageJsonName() {
   return JSON.parse(fs.readFileSync('./package.json', 'utf8')).name;
 }
 
+var pass = require('./passwords.json');
+
 /**
  * Clean all distribuion path
  */
 gulp.task('clean', function () {
-  return gulp.src(['.tmp', './dist', './docs'], { read: false })
+  return gulp.src(['.tmp', './dist', './site/docs'], { read: false })
     .pipe(clean())
     .pipe(size({ title: 'clean'}));
 });
 
-
-/**
- * Copy all samples and tutorials to docs folder
- */
-gulp.task('dist-site', function () {
-  gulp.src(['**/*.md/'], { dot: true })
-    .pipe(tap(function (file, t) {
-      return markdownDocs(file);
-    }))
-    .pipe(htmlmin({
-      removeComments: true,
-      collapseWhitespace: true,
-      collapseBooleanAttributes: true,
-      removeAttributeQuotes: true,
-      removeRedundantAttributes: true,
-      removeEmptyAttributes: true,
-      removeScriptTypeAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      removeOptionalTags: true,
-      minifyJS: true
-    }))
-    .pipe(gulp.dest('./docs/'))
-    .pipe(size({ title: 'markdown html', showFiles: true }));
-
-  gulp.src(['./src/site/**/*.*/'], { dot: true })
-    .pipe(gulpif(/\.html$/, htmlmin({
-      removeComments: true,
-      collapseWhitespace: true,
-      collapseBooleanAttributes: true,
-      removeAttributeQuotes: true,
-      removeRedundantAttributes: true,
-      removeEmptyAttributes: true,
-      removeScriptTypeAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      removeOptionalTags: true,
-      minifyJS: true
-    })))
-    .pipe(gulpif(/\.html$/, size({ title: 'html', showFiles: true })))
-    .pipe(gulpif(/\.js$/, uglify({ preserveComments: 'some' })))
-    .pipe(gulpif(/\.js$/, size({ title: 'js', showFiles: true })))
-    .pipe(gulp.dest('./docs/'))
-    .pipe(size({ title: 'site-dist' }));
-
-});
 
 /**
  * Create a distribuition files
@@ -143,7 +96,7 @@ gulp.task('changelog', function () {
 gulp.task('github-release', function (done) {
   conventionalGithubReleaser({
     type: "oauth",
-    token: '976d50a68f14f96b0fe8e8de0f74bcf6b184a44c' // change this to your own GitHub token or use an environment variable
+    token: pass.github
   }, {
       preset: 'angular' // Or to any other commit message convention you use.
     }, done);
@@ -204,7 +157,6 @@ gulp.task('build', function (callback) {
   runSequence(
     'clean',
     'generate-docs',
-    'dist-site',
     'dist',
     function (error) {
       if (error) {
