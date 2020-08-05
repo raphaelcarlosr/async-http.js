@@ -1,19 +1,46 @@
-<div class="row">
-    <div class="col s12">
-        <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#test1">Test 1</a></li>
-            <li class="tab col s3"><a href="#test2">Test 2</a></li>
-            <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
-            <li class="tab col s3"><a href="#test4">Test 4</a></li>
-        </ul>
+<div class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center teal-text text-lighten-2">&nbsp;</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">Simplify <del>async http request</del> <ins>AJAX</ins> using only dom attributes</h5>
+            </div>
+            <div class="row center">
+                <a href="./site/pages/getting-started.html" class="btn-large waves-effect waves-light grey darken-4" async="" async-target="#main"
+                    async-ga-event-action="Getting Started">
+                    <i class="fa fa-star"></i> Get Started
+                </a>
+            </div>
+            <br><br>
+        </div>
     </div>
-    <div id="test1" class="col s12" async-autoload="/autoload">
-        <span class="async-indicator">Loading</span>
+    <div class="parallax"><img src="./site/images/async.png" alt=""></div>
+</div>
+<div class="container">
+    <h2 class="center-align">Simplifying the complicated AJAX</h2>
+    <hr/>
+    <div class="row">
+        <div class="col s4">
+            <h5 class="center-align">Simple</h3>
+                <p>The implementation can be incremental without major code changes</p>
+        </div>
+        <div class="col s4">
+            <h5 class="center-align">Semantic</h5>
+            <p>When another developer reads your code it will understand how you used ajax in your application</p>
+        </div>
+        <div class="col s4">
+            <h5 class="center-align">No JS to declare</h3>
+                <p>
+                    Do you have a complex web application and can not rewrite it for a "Single Application Page"?
+                    <strong>Use .aysnc-http.js</strong>
+                </p>
+        </div>
     </div>
-    <div id="test2" class="col s12">Test 2</div>
-    <div id="test3" class="col s12">Test 3</div>
-    <div id="test4" class="col s12">Test 4</div>
 </div>
 <script>
-    $('ul.tabs').tabs();
+    $(document).ready(function () {
+        $('.parallax').parallax();
+    });
+
 </script>

@@ -1,0 +1,36 @@
+<nav class="white" role="navigation" id="navbar">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="./site/pages/home.html" class="brand-logo">
+            <!--<img src="./site/images/logo.png" alt="async-http.js" width="40" height="40">-->
+            async-http.js
+        </a>
+
+        <ul class="right hide-on-med-and-down">
+            <li><a href="./site/pages/getting-started.html"><i class="fa fa-star"></i> Getting Started</a></li>
+            <li><a href="./site/samples/index.html"><i class="fa fa-bookmark"></i> Samples</a></li>
+            <li><a href="collapsible.html">Javascript</a></li>
+            <li><a href="mobile.html">Mobile</a></li>
+            <li><a href="badges.html">Link with Right Icon</a></li>
+        </ul>
+        <ul class="side-nav" id="nav-mobile">
+            <li><a href="./site/pages/getting-started.html"><i class="fa fa-star"></i> Getting Started</a></li>
+            <li><a href="./site/samples/index.html"><i class="fa fa-bookmark"></i> Samples</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">Javascript</a></li>
+            <li><a href="mobile.html">Mobile</a></li>
+        </ul>
+        <a href="javascript:;" data-activates="nav-mobile" class="button-collapse">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+</nav>
+<script>
+    $(document).ready(function () {
+        $('.button-collapse').sideNav();
+        $('#navbar').find('a').attr({
+            "async": "",
+            "async-target": "#main"
+        });
+    });
+
+</script>

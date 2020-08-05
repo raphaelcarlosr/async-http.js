@@ -1,30 +1,44 @@
-nav ul a, nav .brand-logo , nav a {
-    color: #067EFB;
+html, body {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  position: relative;
+  font-size-adjust: 100%;  
+}
+
+nav ul a, nav .brand-logo, nav a {
+  color: #067EFB;
 }
 
 nav .brand-logo img {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .parallax-container {
-    min-height: 380px;
-    line-height: 0;
-    height: auto;
-    color: rgba(255, 255, 255, .9);
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255, 255, 255, .9);
 }
 
-.parallax-container .parallax{
-    text-align: center;
+.parallax-container .parallax {
+  text-align: center;
 }
+
 .parallax-container .section {
-    width: 100%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 992px) {
-    .parallax-container .section {
-        position: absolute;
-        top: 40%;
-    }
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
 }
 
 .async-indicator, .async-indicator:before {
@@ -32,24 +46,110 @@ nav .brand-logo img {
   width: 100%;
   margin: 0;
 }
+
 .async-indicator {
   background-color: #b3d4fc;
   display: -webkit-flex;
   display: flex;
 }
+
 .async-indicator:before {
   background-color: #3f51b5;
   content: '';
   -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
+
 @-webkit-keyframes running-progress {
-  0% { margin-left: 0px; margin-right: 100%; }
-  50% { margin-left: 25%; margin-right: 0%; }
-  100% { margin-left: 100%; margin-right: 0; }
+  0% {
+    margin-left: 0px;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 0%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
 }
+
 @keyframes running-progress {
-  0% { margin-left: 0px; margin-right: 100%; }
-  50% { margin-left: 25%; margin-right: 0%; }
-  100% { margin-left: 100%; margin-right: 0; }
+  0% {
+    margin-left: 0px;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 0%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
+}
+
+.async-indicator-overlay {
+  z-index: 2050;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  zoom: 1;
+  cursor: wait;
+  padding-top: 6em;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: #fff 0px 1px 0, #000 0 -1px 0;
+  color: #808080;
+  font-size: 3em;
+}
+
+.async-indicator-overlay .message {
+  -webkit-background-clip: border-box;
+  -moz-background-clip: border-box;
+  -ms-background-clip: border-box;
+  -o-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-background-origin: padding-box;
+  -moz-background-origin: padding-box;
+  -ms-background-origin: padding-box;
+  -o-background-origin: padding-box;
+  background-origin: padding-box;
+  -webkit-background-size: auto;
+  -moz-background-size: auto;
+  -ms-background-size: auto;
+  -o-background-size: auto;
+  background-size: auto;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.247059) 0px -3px 5px 0px, rgba(0, 0, 0, 0.247059) 0px 3px 5px 0px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.247059) 0px -3px 5px 0px, rgba(0, 0, 0, 0.247059) 0px 3px 5px 0px;
+  -ms-box-shadow: rgba(0, 0, 0, 0.247059) 0px -3px 5px 0px, rgba(0, 0, 0, 0.247059) 0px 3px 5px 0px;
+  -o-box-shadow: rgba(0, 0, 0, 0.247059) 0px -3px 5px 0px, rgba(0, 0, 0, 0.247059) 0px 3px 5px 0px;
+  box-shadow: rgba(0, 0, 0, 0.247059) 0px -3px 5px 0px, rgba(0, 0, 0, 0.247059) 0px 3px 5px 0px;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #fff1a8;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffe090), to(#fff2b0));
+  background-origin: padding-box;
+  background-size: auto;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  color: black;
+  font-size: 13.1199998855591px;
+  font-weight: bold;
+  padding-bottom: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 3px;
+  position: fixed;
+  top: 0;
+  left: 43%;
+  height: auto;
+  width: auto;
+  z-index: 10000;
 }

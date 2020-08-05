@@ -1,8 +1,8 @@
 /**
  * async-http.js - Simplify async http request using only dom attributes
- * @version v0.0.19
+ * @version v0.0.20
  * @link https://github.com/raphaelcarlosr/async-http.js
- * @license ISC
+ * @license MIT
  * @author Raphael Carlos Rego <raphaelcarlosr@gmail.com>
  */
 (function (factory) {
@@ -49,7 +49,22 @@
             return attr && attr.name && attr.name.indexOf(begins) === 0;
         });
     };
-
+    //http://stackoverflow.com/questions/2389540/jquery-hasparent
+    /**
+     * jQuery filter parent
+     * @global
+     * @method attrStartWith     
+     * @param {string} selector Parent selector
+     * @return {jQuery} jQuery closest filter element
+     * @see http://stackoverflow.com/questions/2389540/jquery-hasparent
+     */
+    $.fn.within = function (selector) {
+        // Returns a subset of items using jQuery.filter
+        return this.filter(function () {
+            // Return truthy/falsey based on presence in parent
+            return $(this).closest(selector).length;
+        });
+    };
     /**
      * Return unique itens of array
      * @global
@@ -274,6 +289,7 @@
      * @private
      */
     var _private = {
+        eventsNames: 'async:poll-pause async:onprogress async:beforeSend async:error async:success async:complete async:ga-done async:start async:done async:fail async:always async:confirm async:poll async:submit-done async:load-done',
         /**
          * @property queue {Array} 
          * The queue for requests
@@ -429,7 +445,7 @@
          * @return {object} Parsed value object
          */
         parseOption: function (name, value, element) {
-            element = element||document;
+            element = element || document;
             switch (name) {
                 case 'renderMethod':
                     value = asyncHttp.RENDER_METHOD[value];
@@ -711,13 +727,17 @@
     var AsyncHttp = asyncHttp.request = function (context, options) {
         //create an empty context
         if (context === undefined || context === null) { context = $(); }
-        else if ($.isPlainObject(context) && $.isEmptyObject(context) && context.url !== undefined) {
+        else if (($.isPlainObject(context) && $.isEmptyObject(context) === false) && context.url !== undefined) {
             //assume context as options
             options = context;
             //empty context 
-            context = $();
+            context = $(options.target || document.body);
         }
         context = context instanceof jQuery ? context : $(context);
+
+        //off all current events 
+        context.off(_private.eventsNames);
+
         var me = this;
 
         //parse options
@@ -726,9 +746,9 @@
         //log with group
         console.group('New async request for %o', config);
 
-        //validetions
-        if (config.isAutoLoad === false && (context.is('a') || context.is('form')) === false)
-            throw new Error('The async request can\'t be created, the context is not valid.');
+        //validations
+        // if (config.isAutoLoad === false && (context.is('a') || context.is('form')) === false)
+        // throw new Error('The async request can\'t be created, the context is not valid.');
 
         //trigger event
         /**
@@ -905,10 +925,10 @@
                 try {
                     if (paused) {
                         context.data('async-poll-interval', setTimeout(pollInterval, config.poll));
-                    } else if (config.pollRepeats !== undefined && executions == config.pollRepeats) {
+                    } else if ((config.pollRepeats !== undefined && executions == config.pollRepeats) || $(document.body).find(context).length === 0) {
                         clearTimeout(interval);
                         context.data('async-poll', undefined);
-                    } else {
+                    } else {                        
                         //increment executions
                         context.data('async-poll-executions', executions + 1);
                         //make a new request

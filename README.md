@@ -29,3 +29,5 @@
 ## TODO
 
 * Undo (prevent send request)
+* Remove jQuery dependencies
+* Adapt to ES6 
